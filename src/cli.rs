@@ -1,10 +1,22 @@
+use clap::Parser;
 use std::io;
 use std::io::prelude::*;
 use std::net::{TcpStream};
 
+
+#[derive(Parser, Debug)]
+#[command(author, version, about, long_about = None)]
+
+struct Args {
+    #[arg(short, long, default_value_t=String::from("localhost:50394"))]
+    address: String, //Option<String> // in format of ip:port
+}
+
 fn main() -> std::io::Result<()> {
 
-    let address = "0.0.0.0:50394";
+    let args = Args::parse();
+
+    let address = &args.address;
 
     loop {
 

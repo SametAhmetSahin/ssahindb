@@ -1,3 +1,4 @@
+use clap::Parser;
 use std::fs::File;
 use std::fs;
 use std::io::Write;
@@ -5,19 +6,36 @@ use std::process::exit;
 use std::io::prelude::*;
 use std::net::{TcpListener, TcpStream};
 
+#[derive(Parser, Debug)]
+#[command(author, version, about, long_about = None)]
+
+struct Args {
+    #[arg(short, long, default_value_t=String::from("0.0.0.0:50394"))]
+    address: String, //Option<String> // in format of ip:port
+
+    #[arg(short, long, default_value_t=String::from("m"))]
+    mode: String, // should values be written to disk? Possible values are m/memory, d/disk, b/both
+
+    /*
+    #[arg(short, long, default_value_t=60)]
+    save_delay: usize, // 
+    */
+}
+
 
 fn main() {
     println!("SSahinDB starting...");
 
-    //set_key("test1".to_string(), "test1".to_string());
+    let args = Args::parse();
 
-    //println!("{}", get_key("test1".to_string()));
-    start_listener().expect("Couldn't start server");
+    start_listener(args.address).expect("Couldn't start server");
 }
 
-fn start_listener() -> std::io::Result<()> {
+fn start_listener(address: String) -> std::io::Result<()> {
     
-    let listener = TcpListener::bind("0.0.0.0:50394")?;
+    let listener = TcpListener::bind(address.clone())?;
+
+    println!("Listening at {}", address);
     
     for stream in listener.incoming() {
         handle_client(stream?)

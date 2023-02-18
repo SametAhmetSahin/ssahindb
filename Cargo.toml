@@ -7,6 +7,8 @@ edition = "2021"
 
 [dependencies]
 
+clap = { version = "4.1.4", features = ["derive"] }
+
 [[bin]]
 name = "ssahindb-cli"
 path = "src/cli.rs"
