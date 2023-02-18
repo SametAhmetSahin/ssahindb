@@ -13,6 +13,6 @@ clap = { version = "4.1.4", features = ["derive"] }
 name = "ssahindb-cli"
 path = "src/cli.rs"
 
-[[bin]]
-name = "example-rs"
-path = "libraries/rust/example.rs"
+#[[bin]]
+#name = "example-rs"
+#path = "libraries/rust/example.rs"
