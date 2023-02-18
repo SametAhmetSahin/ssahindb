@@ -1,0 +1,1 @@
+A key-value database will be made with simply writing files and reading them, in the first place.
