@@ -55,7 +55,7 @@ fn handle_client(mut stream: TcpStream) {
 }
 
 fn handle_command(args: Vec<&str>) -> String {
-    println!("it is {}", args[0]);
+    //println!("it is {}", args[0]);
     match args[0] {
          "get" => {
             return get_key(args[1].to_string()).to_string();
@@ -75,7 +75,7 @@ fn handle_command(args: Vec<&str>) -> String {
          },
          _ => {
 
-            println!("invalid command!");
+            //println!("invalid command!");
             return format!("Invalid command {}, with args {:?}!", args[0], &args[1..args.len()]);
          },
 
@@ -142,7 +142,7 @@ fn read_file(path: String) -> Result<String, std::io::Error> {
     println!("read file path is: {}", path);
     if file_exists(path.clone()) {
         match fs::read_to_string(path) {
-            Ok(contents) => { println!("Contents: {}", contents); Ok(contents) },
+            Ok(contents) => { Ok(contents) },
             Err(e) => {Err(e)}
         }
     }

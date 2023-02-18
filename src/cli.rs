@@ -27,7 +27,7 @@ fn main() -> std::io::Result<()> {
                     stream.write((&input[0..input.len()-1]).as_bytes())?;
                     //stream.flush(); 
                     let mut resbuffer = vec![0 as u8; 512];
-                    stream.read(&mut resbuffer);
+                    stream.read(&mut resbuffer).expect("Couldn't read from stream");
                     
                     //println!("resbuffer: {:?}", resbuffer);
 
