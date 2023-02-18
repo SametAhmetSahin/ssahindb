@@ -10,3 +10,7 @@ edition = "2021"
 [[bin]]
 name = "ssahindb-cli"
 path = "src/cli.rs"
+
+[[bin]]
+name = "impltest-rs"
+path = "libraries/rust/impltest.rs"

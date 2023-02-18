@@ -37,10 +37,10 @@ fn handle_client(mut stream: TcpStream) {
             let split: Vec<&str> = replaced.split(" ").collect();
             let res = handle_command(split);
             //println!("res is: {}", res);
-            stream.write(res.as_bytes());
+            stream.write(res.as_bytes()).expect("Couldn't write to result buffer!");
             //println!("splitvec {:?}", split);
             //stream.shutdown(std::net::Shutdown::Both).expect("Couldn't shut down the connection");
-            buf = vec![0 as u8; bufsize+1];
+            //buf = vec![0 as u8; bufsize+1];
             
         },
         Err(_) => {
@@ -70,6 +70,9 @@ fn handle_command(args: Vec<&str>) -> String {
          "del" => {
             delete_key(args[1].to_string())
          },
+         "exists" => {
+            key_exists(args[1].to_string()).to_string()
+         },
          _ => {
 
             println!("invalid command!");
@@ -96,6 +99,10 @@ fn set_key(key: String, value: String) -> String {
     }
 }
 
+fn key_exists(key: String) -> bool {
+    return file_exists(String::from("db/") + &key)
+}
+
 fn file_exists(path: String) -> bool {
 
     match fs::metadata(&path) {
@@ -113,7 +120,7 @@ fn delete_file(path: String) -> std::io::Result<()> {
 }
 
 fn delete_key(key: String) -> String {
-    if file_exists(String::from("db/") + &key) {
+    if key_exists(key.clone()) {
 
     match delete_file(String::from("db/") + &key) {
         Ok(_) => {

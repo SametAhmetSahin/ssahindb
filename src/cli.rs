@@ -1,6 +1,6 @@
 use std::io;
 use std::io::prelude::*;
-use std::net::{TcpListener, TcpStream};
+use std::net::{TcpStream};
 
 fn main() -> std::io::Result<()> {
 
