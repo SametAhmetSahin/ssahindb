@@ -9,6 +9,9 @@ edition = "2021"
 
 clap = { version = "4.1.4", features = ["derive"] }
 
+[profile.release]
+strip = true
+
 [[bin]]
 name = "ssahindb-cli"
 path = "src/cli.rs"
